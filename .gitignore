@@ -1,0 +1,28 @@
+# Node.js
+/backend/node_modules
+/frontend/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+
+# Build output
+build
+dist
+
+# Cache files
+.cache
+coverage
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.vscode/
+.idea/
+
