@@ -44,8 +44,6 @@ exports.signUp = async(req,res)=>{
 
         });
 
-        //return res
-
         return res.status(200).json({
             sucsess:true,
             message:"user registerd sucsessfully",
