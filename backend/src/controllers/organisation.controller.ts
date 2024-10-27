@@ -1,6 +1,9 @@
 import { organisationModel } from "../models/user.model"
 import { Response, Request } from "express"
+import jwt, { sign } from "jsonwebtoken"
 
+
+const secret = process.env.JWT_SECRET as string
 
 const orgnisationSignup = async (req: Request, res: Response) => {
     try {
@@ -24,8 +27,15 @@ const orgnisationSignup = async (req: Request, res: Response) => {
             OrgID
         })
 
+        const token = jwt.sign(newOrganisation, secret)
+        req.session.isLoggedIn = true;
+        req.session.name = newOrganisation.name;
+        req.session.email = newOrganisation.email;
+        req.session.employeeID = newOrganisation.employeeID
+
         res.status(200).json({
-            message: "Organisation created successfully"
+            message: "Organisation created successfully",
+            token: token
         })
         return
 
@@ -44,6 +54,13 @@ const orgnisationSignin = async (req: Request, res: Response) => {
 
         const user = await organisationModel.findOne({employeeID})
 
+        if(user?.password !== password) {
+            res.status(4403).json({
+                message: "Wrong password"
+            })
+            return
+        }
+
         if(!user) {
             res.status(404).json({
                 message: "User does not exist"
@@ -51,8 +68,16 @@ const orgnisationSignin = async (req: Request, res: Response) => {
             return
         }
 
+        const token = jwt.sign(user, secret)
+
+        req.session.isLoggedIn = true;
+        req.session.name = user.name;
+        req.session.email = user.email;
+        req.session.employeeID = user.employeeID
+
         res.status(200).json({
-            message: "User signed in"
+            message: "User signed in",
+            token: token
         })
         return
 
