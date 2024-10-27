@@ -1,8 +1,11 @@
 import { organisationModel } from "../models/user.model"
 import { Response, Request } from "express"
+import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 
-const secret = process.env.JWT_SECRET as string || "S3CR3T"
+const secret = process.env.JWT_SECRET as string
 
 const orgnisationSignup = async (req: Request, res: Response) => {
     try {
@@ -26,15 +29,11 @@ const orgnisationSignup = async (req: Request, res: Response) => {
             OrgID
         })
 
-        // const token = jwt.sign(newOrganisation, secret)
-        req.session.isLoggedIn = true;
-        req.session.name = newOrganisation.name;
-        req.session.email = newOrganisation.email;
-        req.session.employeeID = newOrganisation.employeeID
+        const token = jwt.sign({newOrganisation}, secret)
 
         res.status(200).json({
             message: "Organisation created successfully",
-            // token: token
+            token: token
         })
         return
 
@@ -67,16 +66,11 @@ const orgnisationSignin = async (req: Request, res: Response) => {
             return
         }
 
-        // const token = jwt.sign(user, secret)
-
-        req.session.isLoggedIn = true;
-        req.session.name = user.name;
-        req.session.email = user.email;
-        req.session.employeeID = user.employeeID
+        const token = jwt.sign({user}, secret)
 
         res.status(200).json({
             message: "User signed in",
-            // token: token
+            token: token
         })
         return
 

@@ -1,10 +1,11 @@
-import express from 'express'
+import express, { Router } from 'express'
 import cors from 'cors'
 import { VerificationRouter } from './routes/fileHandle.route'
 import { userRouter } from './routes/user.routes'
 import { orgRoute } from './routes/org.routes'
 import { connectToDatabse } from './database/db'
 import session from 'express-session';
+import { Request, Response } from 'express'
 
 connectToDatabse()
 const secret = process.env.JWT_SECRET as string || "S3CR3T"
@@ -36,9 +37,20 @@ declare module 'express-session' {
     }
   }
 
+
+const router = Router();
+const checkAuth = async (req: Request, res: Response) => {
+  console.log(req.headers.authorization);
+  res.status(403).json({
+    message: "true"
+  })
+}
+
 app.use("/api/v1/upload", VerificationRouter)
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/org", orgRoute)
+
+app.use("/api/v1/checkAuth", router.get("", checkAuth))
 
 app.listen(3000);
 console.log("Server running on port: ", 3000);
