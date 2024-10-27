@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 import LockABI from "./DocumentVerification.json";
@@ -10,11 +9,8 @@ const contractAddress = process.env.CONTRACT_ADDRESS as string;
 const provider = new ethers.JsonRpcProvider(process.env.LOCALHOST_URL);
 
 
-const verifyDoc = async (req: Request, res: Response) => {
+const verifyDoc = async (privateKey: string, hash: string) => {
 
-    
-    // Create wallet using private key
-    const { privateKey, hash } = req.body
     const signer = new ethers.Wallet(privateKey, provider);
     // Initialize contract with signer
     const lockContract = new ethers.Contract(
@@ -22,30 +18,25 @@ const verifyDoc = async (req: Request, res: Response) => {
         LockABI.abi,
         signer
     );
-
-    const documentText = "Document";
-    const documentHash = ethers.keccak256(ethers.toUtf8Bytes(documentText));
 
     try {
         // Verify the document was stored
         const isVerified = await lockContract.verifyDocument(hash);
-        res.status(200).json({
-            message: "Document verified"
-        })
-        return
+        // const res = {
+        //     message: "Document verified"
+        // }
+        return isVerified
     } catch(error) {
-        console.log(error);
-        res.status(500).json({
-            message: "Server error"
-        })
-        return
+        // console.log(error);
+        return {
+            message: "Some error occurred"
+        }
     }
 }
 
-const addDoc = async (req: Request, res: Response) => {
+const addDoc = async (privateKey: string, hash: string) => {
 
-    // Create wallet using private key
-    const { privateKey, hash } = req.body
+
     const signer = new ethers.Wallet(privateKey, provider);
     // Initialize contract with signer
     const lockContract = new ethers.Contract(
@@ -54,22 +45,21 @@ const addDoc = async (req: Request, res: Response) => {
         signer
     );
 
-    const documentText = "Document";
-    const documentHash = ethers.keccak256(ethers.toUtf8Bytes(documentText));
-
     try {
         const tx = await lockContract.storeDocument("Org", hash);
-        res.status(200).json({
-            message: "Document Added",
-            Transaction: tx.hash
-        })
-        return
+        // const res = {
+        //     message: "Document Added",
+        //     Transaction: tx.hash
+        // }
+        return {
+            success: "true",
+            transaction: tx.hash
+        }
     } catch(error) {
-        console.log(error)
-        res.status(500).json({
-            message: "Server error",
-        })
-        return
+        return {
+            success: "false",
+            message: "Doc already exists"
+        }
     }
 }
 

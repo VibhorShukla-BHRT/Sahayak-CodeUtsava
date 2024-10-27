@@ -1,6 +1,5 @@
 import { organisationModel } from "../models/user.model"
 import { Response, Request } from "express"
-import jwt, { sign } from "jsonwebtoken"
 
 
 const secret = process.env.JWT_SECRET as string || "S3CR3T"
