@@ -2,6 +2,9 @@ import React from 'react'
 import { useFilePicker } from 'use-file-picker';
 import{useState} from 'react'
 import './FilePicker.css'
+
+//  http://localhost:3000/api/v1/upload/verify
+
 const Filepicker = () => {
   const [key , SetKey]=useState("");                        //////////////////////////////////////////////////////
   const handleChange = (e)=>{                                /////////////////////////////////////////////////////

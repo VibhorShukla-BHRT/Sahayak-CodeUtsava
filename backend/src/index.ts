@@ -7,7 +7,7 @@ import { connectToDatabse } from './database/db'
 import session from 'express-session';
 
 connectToDatabse()
-const secret = process.env.JWT_SECRET as string;
+const secret = process.env.JWT_SECRET as string || "S3CR3T"
 
 const app = express()
 app.use(express.urlencoded({ extended: true }));

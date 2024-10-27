@@ -9,6 +9,8 @@ import Filepicker from './components/FilePicker/FilePicker';
 import FilepickerBlock from './components/FilePicker/FilePickerBlock';
 import DashBoardOrg from './components/DashBoardOrg/DashBoardOrg'
 // import DashBoardOrg from './components/DashBoardOrg/DashBoardOrg'
+
+//  http:localhost:3000/api/v1/upload/fetch
 function App() {
 
   return (
@@ -16,6 +18,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       {/* <Route path="/" element={<Home/>} /> */}
+
       <Route path="/dashboard-org" element={<DashBoardOrg/>} />
       <Route path="/dashboard-ind" element={<DashBoard/>} />
       <Route path="/Login" element={<Login/>} />
@@ -27,6 +30,7 @@ function App() {
      {/* <Navbar/> */}
      {/* <Login/> */}
      {/* <LoginOrg/> */}
+
     </BrowserRouter>
     </>
   )
