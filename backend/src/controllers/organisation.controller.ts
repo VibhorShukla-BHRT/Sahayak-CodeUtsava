@@ -3,7 +3,7 @@ import { Response, Request } from "express"
 import jwt, { sign } from "jsonwebtoken"
 
 
-const secret = process.env.JWT_SECRET as string
+const secret = process.env.JWT_SECRET as string || "S3CR3T"
 
 const orgnisationSignup = async (req: Request, res: Response) => {
     try {
@@ -27,7 +27,7 @@ const orgnisationSignup = async (req: Request, res: Response) => {
             OrgID
         })
 
-        const token = jwt.sign(newOrganisation, secret)
+        // const token = jwt.sign(newOrganisation, secret)
         req.session.isLoggedIn = true;
         req.session.name = newOrganisation.name;
         req.session.email = newOrganisation.email;
@@ -35,7 +35,7 @@ const orgnisationSignup = async (req: Request, res: Response) => {
 
         res.status(200).json({
             message: "Organisation created successfully",
-            token: token
+            // token: token
         })
         return
 
@@ -68,7 +68,7 @@ const orgnisationSignin = async (req: Request, res: Response) => {
             return
         }
 
-        const token = jwt.sign(user, secret)
+        // const token = jwt.sign(user, secret)
 
         req.session.isLoggedIn = true;
         req.session.name = user.name;
@@ -77,7 +77,7 @@ const orgnisationSignin = async (req: Request, res: Response) => {
 
         res.status(200).json({
             message: "User signed in",
-            token: token
+            // token: token
         })
         return
 

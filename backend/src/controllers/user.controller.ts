@@ -1,11 +1,8 @@
 import { userModel } from "../models/user.model"
 import { Response, Request } from "express"
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { firebaseApp } from "../utils/firebase";
 import jwt from "jsonwebtoken";
 
-const auth = getAuth(firebaseApp);
-const secret = process.env.JWT_SECRET as string
+const secret = process.env.JWT_SECRET as string || "S3CR3T"
 
 const userSignup = async (req: Request, res: Response) => {
     try {
@@ -27,14 +24,14 @@ const userSignup = async (req: Request, res: Response) => {
             phonenumber
         })
 
-        const token = jwt.sign(newUser, secret)
+        // const token = jwt.sign(newUser, secret)
         req.session.isLoggedIn = true;
         req.session.name = newUser.name;
         req.session.email = newUser.email;
 
         res.status(200).json({
             message: "User created successfully",
-            token: token
+            // token: token
         })
         return
 
@@ -67,14 +64,14 @@ const userSignin = async (req: Request, res: Response) => {
             return
         }
 
-        const token = jwt.sign(user, secret)
+        // const token = jwt.sign(user, secret)
         req.session.isLoggedIn = true;
         req.session.name = user.name;
         req.session.email = user.email;
 
         res.status(200).json({
             message: "User signed in",
-            token: token
+            // token: token
         })
         return
 
