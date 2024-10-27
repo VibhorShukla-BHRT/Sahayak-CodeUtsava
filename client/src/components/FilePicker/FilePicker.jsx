@@ -1,6 +1,9 @@
 import React from 'react'
 import { useFilePicker } from 'use-file-picker';
 import './FilePicker.css'
+
+//  http://localhost:3000/api/v1/upload/verify
+
 const Filepicker = () => {
   const handleUpload = async()=>{
     const formdata = new FormData();

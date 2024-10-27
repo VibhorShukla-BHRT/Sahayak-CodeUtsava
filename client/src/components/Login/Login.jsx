@@ -48,7 +48,8 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await fetch("/api/v1/user/signin",{
+
+            const response = await fetch("http://localhost:3000/api/v1/user/signin",{
             method: "POST",
             crossDomain: true,
             headers: {
@@ -84,7 +85,10 @@ function Login() {
       e.preventDefault();
 
       try {
-          const response = await fetch("/api/v1/user/signin", {
+
+        console.log(JSON.stringify(user))
+
+          const response = await fetch("http://localhost:3000/api/v1/user/signup", {
 
               method: "POST",
               headers: {
