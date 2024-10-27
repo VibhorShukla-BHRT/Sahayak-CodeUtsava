@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import {useNavigate} from 'react-router-dom' 
 import DashNav from '../DashNav/DashNav'
-import { RiFile3Line,RiFileCheckLine,RiFileCloseLine,RiFileHistoryLine } from "react-icons/ri";
+import { RiFile3Line,RiFileCheckLine,RiFileCloseLine,RiFileHistoryLine,RiFileUploadLine } from "react-icons/ri";
 const DashSide = (props)=>{
     return(
         <div className='pt-8 pl-5'>
@@ -29,6 +29,12 @@ const DashSide = (props)=>{
                     <p className='pl-[10px]'>Rejected Docs</p>
                 </button>
             </div>
+            <div className='flex w-[100%] items-center py-4'>
+                <button onClick={props.handlePush} className={`flex w-[100%] items-center ${props.push?'bg-emerald-400':''} w-[80%] rounded-lg p-2 text-[12px]`}>
+                    <RiFileUploadLine size={27} color='rgb(71 85 105)'/>
+                    <p className='pl-[10px]'>Push To Block Chain</p>
+                </button>
+            </div>
         </div>
     )
 }
@@ -38,10 +44,12 @@ const DashBoard = () => {
     const [verified , SetVerified] = useState(false);
     const [rejected , SetRejected] = useState(false);
     const [pending , SetPending] = useState(false);
+    const [push , SetPush] = useState(false);
     const [presentFiles , SetPresentFiles] = useState([{fileName:"Example"}]);
     const [verifiedFiles , SetVerifiedFiles] = useState([{fileName:"Example"}]);
     const [rejectedFiles , SetRejectedFiles] = useState([{fileName:"Example"}]);
     const [pendingFiles , SetPendingFiles] = useState([{fileName:"Example"}]);
+    const [pushFiles , SetPushFiles] = useState([{fileName:"Example"}]);
     const requestData = async ()=>{
         // try{
         //     let res1 = await fetch("");
@@ -65,31 +73,34 @@ const DashBoard = () => {
         requestData();
       });
     const handleVerDoc=()=>{
-        navigate('/filepicker')
+        navigate('/filepicker-block')
     }
     const handleDocPres = ()=>{
-        SetPresent(true);SetVerified(false);SetRejected(false);SetPending(false);
+        SetPresent(true);SetVerified(false);SetRejected(false);SetPending(false);SetPush(false);
     }
     const handleDocVeri = ()=>{
-        SetPresent(false);SetVerified(true);SetRejected(false);SetPending(false);
+        SetPresent(false);SetVerified(true);SetRejected(false);SetPending(false);SetPush(false);
     }
     const handleDocRejc = ()=>{
-        SetPresent(false);SetVerified(false);SetRejected(true);SetPending(false);
+        SetPresent(false);SetVerified(false);SetRejected(true);SetPending(false);SetPush(false);
     }
     const handleDocPend = ()=>{
-        SetPresent(false);SetVerified(false);SetRejected(false);SetPending(true);
+        SetPresent(false);SetVerified(false);SetRejected(false);SetPending(true);SetPush(false);
+    }
+    const handlePush = ()=>{
+        SetPresent(false);SetVerified(false);SetRejected(false);SetPending(false);SetPush(true);
     }
   return (
     <>
-        <DashNav heading="User Dashboard"/>
+        <DashNav heading="Organisation Dashboard"/>
         <div className='flex h-[90vh]'>
-            <div className='border-r-slate-400 border-r-4 w-[345px]'><DashSide handleDocPres={handleDocPres} handleDocVeri={handleDocVeri} handleDocRejc={handleDocRejc} handleDocPend={handleDocPend} present={present} verified={verified} rejected={rejected} pending={pending}/></div>
+            <div className='border-r-slate-400 border-r-4 w-[345px]'><DashSide handleDocPres={handleDocPres} handleDocVeri={handleDocVeri} handleDocRejc={handleDocRejc} handleDocPend={handleDocPend} present={present} verified={verified} rejected={rejected} pending={pending} handlePush={handlePush} push={push}/></div>
             <div className='w-full'>
                 {present && <div className='p-4'>
                                 <h1 className='font-bold text-xl text-slate-600'>Documents Present</h1>
                                 {(presentFiles.length===0 && <p>Nothing to dsiplay</p>)}
                                 {presentFiles.map((item,index)=>{
-                                    return(<div key={index} className='m-8 rounded-md bg-slate-300 p-4 flex items-center justify-between'>{item.fileName}<button className='px-7 py-2 bg-gradient-text rounded-[25px] text-white' onClick={handleVerDoc}>Verify Docs</button></div>
+                                    return(<div key={index} className='m-8 rounded-md bg-slate-300 p-4 flex items-center'>{item.fileName}</div>
                                     )
                                 })}
                                 
@@ -113,6 +124,14 @@ const DashBoard = () => {
                                 {(pendingFiles.length===0 && <p>Nothing to dsiplay</p>)}
                                 {pendingFiles.map((item,index)=>{
                                     return(<div key={index} className='m-8 rounded-md bg-slate-300 p-4 flex items-center'>{item.fileName}</div>)
+                                })}
+                            </div>}
+                {push && <div className='p-4'>
+                                <h1 className='font-bold text-xl text-slate-600'>Documents to Push</h1>
+                                {(pushFiles.length===0 && <p>Nothing to dsiplay</p>)}
+                                {pushFiles.map((item,index)=>{
+                                    return(<div key={index} className='m-8 rounded-md bg-slate-300 p-4 flex items-center justify-between'>{item.fileName}
+                                    <button className='px-7 py-2 bg-gradient-text rounded-[25px] text-white' onClick={handleVerDoc}>Verify Docs</button></div>)
                                 })}
                             </div>}
             </div>
