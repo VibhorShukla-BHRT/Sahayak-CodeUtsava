@@ -28,6 +28,9 @@ const userSignup = async (req: Request, res: Response) => {
         })
 
         const token = jwt.sign(newUser, secret)
+        req.session.isLoggedIn = true;
+        req.session.name = newUser.name;
+        req.session.email = newUser.email;
 
         res.status(200).json({
             message: "User created successfully",
@@ -65,6 +68,9 @@ const userSignin = async (req: Request, res: Response) => {
         }
 
         const token = jwt.sign(user, secret)
+        req.session.isLoggedIn = true;
+        req.session.name = user.name;
+        req.session.email = user.email;
 
         res.status(200).json({
             message: "User signed in",
