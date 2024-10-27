@@ -1,0 +1,113 @@
+.gpt3_nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:1rem 6rem;
+}
+.logo{
+    margin: 0 1.2rem 0 0;
+}
+
+.gpt3_nav-links{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.gpt3_nav-links-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.gpt3_nav p{
+    font-family: var(--font-family);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 25px;
+    margin: 0 1rem;
+}
+a{
+    text-decoration: none;
+    color:white;
+}
+a:hover{
+    font:bolder;
+}
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 1rem;
+}
+.sbuttons{
+    border:none;
+    border-radius: 0.5rem;
+    background: none;
+    cursor:pointer;
+    font-family: var(--font-family);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 25px;
+    margin: 0 0.3rem;
+    color: white;
+    height: 2.5rem;padding: 0.5rem 1rem;
+}
+.signup{
+    background-color: #ff4820;
+}
+.mobile-menu-container{
+    position :absolute;
+    top:4rem;right:0.5rem;
+    background-color: slategray;
+    color:white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    min-width:12rem;
+    min-height: 13rem;
+    border-radius: 5px;
+    box-shadow: 0 0 50px var(--color-footer);
+}
+.buttons-and-menu{
+    display: flex;
+    align-items: center;
+}
+.gpt3_nav-menu , .mobile-menu-buttons{
+    display: none;
+}
+/* .mobile-menu{
+
+}
+.mobile-menu-buttons{
+
+} */
+@media screen and (max-width:1050px){
+    .gpt3_nav-links-container{
+        display:none;
+    }
+    .gpt3_nav-menu{
+        display: flex;
+    }
+    .gpt3_nav{
+        padding:0.5rem 4rem;
+    }
+    .mobile-menu-container{
+        top:6rem;right:2rem;
+    }
+}
+@media screen and (max-width:550px){
+    .buttons{
+        display: none;
+    }
+    .mobile-menu-buttons{
+        display: block;
+    }
+    .burger{
+        top:25px;
+    }
+    /* .gpt3_nav{
+        padding:2rem 2rem;
+    } */
+    .mobile-menu-container{
+        top:4rem;right:2.5rem;
+    }
+}
