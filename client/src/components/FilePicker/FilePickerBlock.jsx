@@ -2,9 +2,6 @@ import React from 'react'
 import { useFilePicker } from 'use-file-picker';
 import{useState} from 'react'
 import './FilePicker.css'
-
-//  http://localhost:3000/api/v1/upload/verify
-
 const Filepicker = () => {
   const [key , SetKey]=useState("");                        //////////////////////////////////////////////////////
   const handleChange = (e)=>{                                /////////////////////////////////////////////////////
@@ -67,7 +64,7 @@ const Filepicker = () => {
       <div>
       {!!filesContent.length && <div>
         <input type="text" value={key} placeholder='Enter Private Key...' name="text-input" id="text-input" className='rounded-md bg-slate-100 p-2 text-sm' onChange={handleChange}/>
-        <div className='flex justify-center'><button className='bg-blue-600 rounded-md py-1 px-3 text-white mt-2' onClick={() => handleUpload()}>Upload</button></div></div>}
+        <div className='flex justify-center'><button className='bg-blue-600 rounded-md py-1 px-3 text-white mt-2' onClick={() => handleUpload()}>Push to Block Chain</button></div></div>}
       </div>
     </div>
     </div>

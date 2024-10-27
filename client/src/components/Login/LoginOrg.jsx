@@ -8,7 +8,7 @@ function LoginOrg() {
     const [isSignUp, setIsSignUp] = useState(true);
 
     const {storeTokenInLS} = useAuth();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const toggleMode = () => {
       setIsSignUp(!isSignUp);
@@ -70,7 +70,7 @@ function LoginOrg() {
             setUser({  email: "", password: "" })
 
             toast.success(res.message);
-            // navigate("/");
+            navigate("/dashboard-org");
         }
         else{
             const errorResponse = await response.json();
@@ -104,7 +104,7 @@ function LoginOrg() {
 
               toast.success(res.message);
 
-              // navigate("/");
+              navigate("/dashboard-org");
           }
           else{
               const erroMessage = await response.json();
